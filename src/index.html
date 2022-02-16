@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You`re Films</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <div class="modal-warapp d-none">
+        <div class="modal-dialog modal-xl">
+             <div class="modal-content modal-background">
+                <div class="modal-header">
+                    <h5 id="search-title" class="modal-title h4 textColor" id="exampleModalXlLabel">Пошук за словом:</h5>
+                    <button id="search-close" type="button" class="btn-close textColor" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row content__list d-flex flex-wrap" id="search__list">
+                            <!-- Item Card -->
+                            <!-- END Item Card -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="row header d-flex justify-content-between p-3">
+                <div class="col-2 d-flex align-items-center gap-2">
+                    <h1>My</h1>
+                    <img class="header__img" src="./img/logo.png" alt="Me cinema">
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-around gap-1">
+                    <form id="search-form">
+                        <input id="input-search" class="textColor backgroundColor" type="search" placeholder="Пошук за словом...">
+                        <input id="input-submit" type="submit" hidden>
+                    </form>
+                    <button type="button" class="btn upperText textColor backgroundColor" id="swich">
+                        мої колекції
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="content" id="show-new">
+            <div class="container">
+                <ul class="row content__fillter d-flex flex-wrap gap-3">
+                    <!-- Sittings item for fillter films -->
+                    <li class="col-auto Filter active content__fillter__item backgroundFilltre text-center rounded-pill p-2">
+                        <p class="pFiller">
+                            рекомендації до перегляду
+                        </p>
+                    </li>
+                    <!-- END Sittings item for fillter films -->
+
+                    <!-- Sittings item for fillter films -->
+                    <li class="col-auto Filter content__fillter__item backgroundFilltre text-center rounded-pill p-2">
+                        <p class="pFiller">
+                            сорторувати за Emojis 🙄
+                        </p>
+                    </li>
+                    <!-- END Sittings item for fillter films -->
+                </ul>
+                <div class="row content__list d-flex flex-wrap" id="content__list">
+                    <!-- Item Card -->
+                    <!-- END Item Card -->
+                </div>
+                <div class="row" id="loader">
+                    <div class="col-2 d-flex align-items-center justify-content-around w-100 mb-4">
+                        <button id="loadMore" type="button" class="btn btnFocus upperText backgroundColor textColor">
+                            Завантажити ще
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="colections d-none" id="show-new">
+            <div class="container">
+                <div class="row content__list d-flex flex-wrap" id="storage__list">
+                    <!-- Item Card -->
+                    <!-- END Item Card -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col footer d-flex align-items-center justify-content-around">
+                    <p>
+                        Проект розроблений студентом 8 групи ФІТ Кушнір Євгеній
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

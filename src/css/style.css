@@ -1,0 +1,210 @@
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #092355;
+    position: relative;
+}
+h1 {
+    font-size: 1rem;
+    font-weight: 900;
+    font-size: 25px;
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+
+button, input {
+    outline: none;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+ul {
+    list-style: none;
+}
+
+/* all classes */
+.upperText {
+    text-transform: uppercase;
+}
+.textColor {
+    color: #AB57FF;
+    font-weight: bold;
+}
+
+.backgroundColor {
+    background-color: #D0D2FF;
+}
+
+.Filter {
+    cursor: pointer;
+}
+.Filter:hover {
+    background-color: #CA5AFF;
+}
+.Filter.active {
+    background-color: #CA5AFF;
+    border: 1px solid #7500ac;
+}
+.backgroundFilltre {
+
+    border: 1px solid #ff8d00;
+}
+
+.pFiller {
+    color: white;
+    font-size: 13px;
+}
+.textToLowerCase {
+    text-transform: lowercase;
+    color: rgb(227 136 255);
+    font-size: 12px;
+}
+.btnFocus:focus {
+    box-shadow: 0 0 0 0.25rem rgb(201 113 255 / 58%);
+}
+
+.buttonActive {
+    color: #673ab7;
+}
+/* END all classes */
+
+.modal-warapp {
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.39);
+}
+
+.modal-background {
+    background-color: rgba(216, 216, 216, 0.95);
+}
+
+.header, .footer {
+    background-color: #CDE1FF;
+
+}
+.header__img {
+    width: 85%;
+}
+
+main {
+    min-height: 100vh;
+    margin-top: 5rem;
+}
+.content__fillter {
+    border-bottom: 4px solid #9E00FF;
+    padding-bottom: 5px;
+}
+
+.content__list {
+    margin: 3rem 0;
+}
+.content__list__item {
+    margin: 15px 0px 15px 0px;
+}
+
+.content__list__item__wrapp {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #7B67FC;
+    min-width: 100%;
+}
+
+.content__list__item__header {
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 312px;
+}
+.content__list__item__header span {
+    position: absolute;
+    background-color: #092355;
+    border-radius: 50%;
+    color: white;
+    width: 35px;
+    padding: 5px;
+    text-align: center;
+    top: 5px;
+    left: 10px;
+}
+.content__list__item__header i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 40px;
+    transition: font-weight .5s ease-in-out;
+    color: #092355;
+    cursor: pointer;
+}
+.content__list__item__header i:hover {
+    font-weight: bold;
+}
+i.active {
+    font-weight: bold;
+    color: #AB57FF;
+}
+
+.content__list__item__header img {
+    width: 100%;
+}
+
+.content__list__item__footer {
+    color: white;
+    margin: 10px 0 0 0;
+}
+
+.footer {
+    border-top: 5px solid #7eaff7;
+    color: white;
+    padding: 20px 0;
+    font-weight: normal;
+    background-color: #4f78b7;
+}
+
+
+/* Spinner */
+.lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+  .lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+  .lds-facebook div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+  }
+  .lds-facebook div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+  }
+  @keyframes lds-facebook {
+    0% {
+      top: 8px;
+      height: 64px;
+    }
+    50%, 100% {
+      top: 24px;
+      height: 32px;
+    }
+  }
+
+/* END Spinner */
