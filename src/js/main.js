@@ -3,22 +3,31 @@ import '../img/logo.png'
 import Helper from './helpers';
 import Storage from './localStorage';
 import Search from './search';
+import ActiveModal from './modal';
+import FiltreMod from './filtreMod'
 
 const switchContent = document.querySelectorAll('#show-new');
 const switchBtn = document.querySelector('#swich');
 const List = document.querySelector('#content__list');
 const storageList = document.querySelector('#storage__list');
-const searchList = document.querySelector('#search__list');
+const contentList = document.querySelector('#filtre__list');
 const formSearch = document.querySelector('#search-form');
 const Modal = document.querySelector('.modal-warapp');
-const btnModalClose = document.querySelector('#search-close');
+const switchMod = document.querySelector('.wrapper-content-switcher').children;
 const textModalTitle = document.querySelector('#search-title');
 const Loader = document.querySelector('#loader');
 const loadNewSetCartds = document.querySelector('#loadMore');
 
+/* Filter */
+const standartMod = document.querySelector('#standart');
+const filterMod = document.querySelector('#activeFilter');
+/* END Filter */
+
 const Helpers = new Helper();
 const LocalStorage = new Storage();
 const ActiveSearch = new Search();
+const OpenModal = new ActiveModal();
+const Filtre = new FiltreMod(); 
 
 
 
@@ -30,8 +39,15 @@ const ActiveSearch = new Search();
 switchBtn.addEventListener('click', switcher);
 loadNewSetCartds.addEventListener('click', Fetch);
 List.addEventListener('click', workWithStorage);
-searchList.addEventListener('click', workWithStorage);
+contentList.addEventListener('click', workWithStorage)
 formSearch.addEventListener('submit', handlerSearch);
+filterMod.addEventListener('click', activeFilterMod)
+
+standartMod.addEventListener('click', () => {
+    standartMod.classList.add('active');
+    filterMod.classList.remove('active');
+})
+
 /* Пагинація */
 
 // window.addEventListener('scroll', throttle(checkPosition));
@@ -79,12 +95,82 @@ formSearch.addEventListener('submit', handlerSearch);
   
 /* КІНЕЦЬ Пагинація */
 
+function activeFilterMod(e) {
+    if(!e.target.parentNode.classList.contains('active')) {
+
+        const modalData = {
+            title: 'Обери смайлик, щоб почати шукати тобі фільми!',
+            html: 'undefiend'
+        }
+    
+        const emoji = [
+            {emoji:'😀', id: '13'}, 
+            {emoji:'😊', id: '19'}, 
+            {emoji:'😎', id: '11'},
+            {emoji:'😴', id: '22'},
+            {emoji:'😖', id: '18'},
+            {emoji:'😝', id: '7'},
+            {emoji:'🦾', id: '6'},
+            {emoji:'😍', id: '2'},
+            {emoji:'👎', id: '17'}
+        ]
+    
+        const data = OpenModal.createEmojiCard(emoji)
+        modalData.html = data;
+    
+        const html = OpenModal.createHTMLForModal(modalData);
+    
+        Helpers.innerToHTML(Modal, html);
+        openModal();
+    
+        const searchList = document.querySelector('#search__list');
+    
+        searchList.addEventListener('click', chooseEmoji);
+    
+    }
+    
+}
+
+async function chooseEmoji(e) {
+    const id = e.target.dataset.id;
+    if(typeof id === 'string') {
+
+        if(switchMod[1].classList.contains('d-none')) {
+            switchMod[0].classList.toggle('d-none');
+            switchMod[1].classList.toggle('d-none');
+            // switchMod[1].classList.add('d-block');
+    
+            standartMod.classList.remove('active');
+            filterMod.classList.add('active');
+    
+            closeModal();
+        }
+
+        const data = await Filtre.activeFiltreFetch(id);
+        Filtre.addPage();
+
+        const html = Helpers.createCard(data);
+
+        contentList.innerHTML += html;
+
+
+    }
+
+}
+
+
 async function handlerSearch(e) {
     e.preventDefault();
 
-    const value = e.target.children[0].value.toLowerCase();
+    const title = e.target.children[0].value.toLowerCase();
+    e.target.children[0].value = '';
 
-    let data = await ActiveSearch.search(value);
+    const modalData = {
+        title: `Пошук за словом: ${title}`,
+        html: '',
+    }
+
+    let data = await ActiveSearch.search(title);
 
     let cards = '';
 
@@ -95,30 +181,33 @@ async function handlerSearch(e) {
         data = newData;
 
         cards = Helpers.createCard(data);
+        modalData.html = cards
     } else {
         cards = '<h3 style="text-align:center; color:#fff"> Нічого немає </h3>';
     }
 
-    Helpers.innerToHTML(searchList, cards);
+    const html = OpenModal.createHTMLForModal(modalData);
 
-    e.target.children[0].value = '';
-    textModalTitle.innerHTML += ` ${value}`
+    Helpers.innerToHTML(Modal, html);
+    openModal();
 
-    if(Modal.classList.contains('d-none')) {
-        Modal.classList.remove('d-none');
-        Modal.classList.add('d-block');
+}
 
-        btnModalClose.addEventListener('click', closeModal)
-    }
+function openModal() {
+    Modal.classList.remove('d-none');
+    Modal.classList.add('d-block');
+
+    const searchList = document.querySelector('#search__list');
+    const btnModalClose = document.querySelector('#search-close');
+
+    searchList.addEventListener('click', workWithStorage);
+    btnModalClose.addEventListener('click', closeModal)
 }
 
 function closeModal() {
+    Modal.innerHTML = '';
     Modal.classList.remove('d-block');
     Modal.classList.add('d-none');
-    searchList.innerHTML = '';
-    textModalTitle.innerHTML = 'Пошук за словом:'
-
-    btnModalClose.removeEventListener('click', closeModal);
 }
 
 function switcher(e) {

@@ -42,7 +42,8 @@ export default class Helper {
         return {...item, marked: true}
     }
 
-    
+
+
     addMarked(arr) {
         return arr.map(el => {
             return {
@@ -54,12 +55,18 @@ export default class Helper {
 
     checkIsMarked(storage, data) {
         storage.forEach(check => {
-            data.forEach(el => {
-                if(el.filmId === +check) {
-                    el.marked = true;
+            // data.forEach(el => {
+            //     if(el.filmId === +check) {
+            //         el.marked = true;
+            //         return
+            //     }
+            // })
+            for(let i = 0; i < data.length; i++) {
+                if(data[i].filmId === +check) {
+                    data[i].marked = true;
                     return
                 }
-            })
+            }
         })
 
         return data
@@ -77,7 +84,7 @@ export default class Helper {
                             <!-- Image and rating -->
                             <div class="content__list__item__header" style="background: url(${el.posterUrlPreview}); background-repeat: no-repeat; background-size: cover">
                                 <span>${el.rating ? [...el.rating][0] :'🐳'}</span>
-                                <i data-id="${el.filmId}" class="fa-regular fa-bookmark ${el.marked ? 'active' : ''}"></i>
+                                <i data-id="${el.filmId ? el.filmId : el.kinopoiskId}" class="fa-regular fa-bookmark ${el.marked ? 'active' : ''}"></i>
                                 
                             </div>
                             <!-- END Image and rating -->

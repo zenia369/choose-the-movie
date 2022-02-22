@@ -15,22 +15,7 @@
 <body>
 
     <div class="modal-warapp d-none">
-        <div class="modal-dialog modal-xl">
-             <div class="modal-content modal-background">
-                <div class="modal-header">
-                    <h5 id="search-title" class="modal-title h4 textColor" id="exampleModalXlLabel">Пошук за словом:</h5>
-                    <button id="search-close" type="button" class="btn-close textColor" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row content__list d-flex flex-wrap" id="search__list">
-                            <!-- Item Card -->
-                            <!-- END Item Card -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <header>
@@ -60,30 +45,47 @@
             <div class="container">
                 <ul class="row content__fillter d-flex flex-wrap gap-3">
                     <!-- Sittings item for fillter films -->
-                    <li class="col-auto Filter active content__fillter__item backgroundFilltre text-center rounded-pill p-2">
-                        <p class="pFiller">
+                    <li id="standart" class="col-auto Filter active content__fillter__item backgroundFilltre text-center rounded-pill p-2">
+                        <p class="pFilter" >
                             рекомендації до перегляду
                         </p>
                     </li>
                     <!-- END Sittings item for fillter films -->
 
                     <!-- Sittings item for fillter films -->
-                    <li class="col-auto Filter content__fillter__item backgroundFilltre text-center rounded-pill p-2">
-                        <p class="pFiller">
+                    <li id="activeFilter" class="col-auto Filter content__fillter__item backgroundFilltre text-center rounded-pill p-2">
+                        <p class="pFilter">
                             сорторувати за Emojis 🙄
                         </p>
                     </li>
                     <!-- END Sittings item for fillter films -->
                 </ul>
-                <div class="row content__list d-flex flex-wrap" id="content__list">
-                    <!-- Item Card -->
-                    <!-- END Item Card -->
-                </div>
-                <div class="row" id="loader">
-                    <div class="col-2 d-flex align-items-center justify-content-around w-100 mb-4">
-                        <button id="loadMore" type="button" class="btn btnFocus upperText backgroundColor textColor">
-                            Завантажити ще
-                        </button>
+                <div class="wrapper-content-switcher">
+                    <div class="d-block">
+                        <div class="row content__list d-flex flex-wrap" id="content__list">
+                            <!-- Item Card -->
+                            <!-- END Item Card -->
+                        </div>
+                        <div class="row" id="loader">
+                            <div class="col-2 d-flex align-items-center justify-content-around w-100 mb-4">
+                                <button id="loadMore" type="button" class="btn btnFocus upperText backgroundColor textColor">
+                                    Завантажити ще
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-none">
+                        <div class="row content__list d-flex flex-wrap" id="filtre__list">
+                            <!-- Item Card -->
+                            <!-- END Item Card -->
+                        </div>
+                        <div class="row" id="loader">
+                            <div class="col-2 d-flex align-items-center justify-content-around w-100 mb-4">
+                                <button data-id="" data-page="" id="filtre-loadMore" type="button" class="btn btnFocus upperText backgroundColor textColor">
+                                    Завантажити ще
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -54,7 +54,7 @@ ul {
     border: 1px solid #ff8d00;
 }
 
-.pFiller {
+.pFilter {
     color: white;
     font-size: 13px;
 }
@@ -69,6 +69,15 @@ ul {
 
 .buttonActive {
     color: #673ab7;
+}
+
+.emoji {
+    margin: 0 auto;
+    font-size: 5rem;
+    cursor: pointer;
+}
+.emoji:hover {
+    filter: brightness(0.7);
 }
 /* END all classes */
 
