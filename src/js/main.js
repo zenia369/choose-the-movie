@@ -181,6 +181,7 @@ async function LoadCardForFilterMod(id) {
 
 function switcherLoader() {
     Loader.classList.toggle('loader-active');
+    btnFiltreLoadMore.classList.toggle('btn-active');
 }
 
 function switcherForContent() {

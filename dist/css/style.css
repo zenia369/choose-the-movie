@@ -86,9 +86,10 @@ ul {
     filter: brightness(0.7);
 }
 
-.loader-active {
+.loader-active, .btn-active {
     display: none !important;
 }
+
 /* END all classes */
 
 .modal-warapp {
