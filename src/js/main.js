@@ -1,5 +1,7 @@
 import '../css/style.css';
-import '../img/logo.png'
+import '../img/logo.png';
+import '../img/logo_transparent.png';
+import '../img/favicon.png';
 import Helper from './helpers';
 import Storage from './localStorage';
 import Search from './search';
@@ -8,20 +10,25 @@ import FiltreMod from './filtreMod'
 
 const switchContent = document.querySelectorAll('#show-new');
 const switchBtn = document.querySelector('#swich');
+const switchMod = document.querySelector('.wrapper-content-switcher').children;
+
+const btnFiltreLoadMore = document.querySelector('#filtre-loadMore');
+const btnLoadNewSetCartds = document.querySelector('#loadMore');
+
 const List = document.querySelector('#content__list');
 const storageList = document.querySelector('#storage__list');
 const contentList = document.querySelector('#filtre__list');
+
 const formSearch = document.querySelector('#search-form');
 const Modal = document.querySelector('.modal-warapp');
-const switchMod = document.querySelector('.wrapper-content-switcher').children;
-const textModalTitle = document.querySelector('#search-title');
-const Loader = document.querySelector('#loader');
-const loadNewSetCartds = document.querySelector('#loadMore');
+const Loader = document.querySelector('#loader-in-filterList');
 
-/* Filter */
+
+
+/* Filter Mod */
 const standartMod = document.querySelector('#standart');
 const filterMod = document.querySelector('#activeFilter');
-/* END Filter */
+/* END Filter Mod */
 
 const Helpers = new Helper();
 const LocalStorage = new Storage();
@@ -37,16 +44,13 @@ const Filtre = new FiltreMod();
 })()
 
 switchBtn.addEventListener('click', switcher);
-loadNewSetCartds.addEventListener('click', Fetch);
+btnLoadNewSetCartds.addEventListener('click', Fetch);
 List.addEventListener('click', workWithStorage);
 contentList.addEventListener('click', workWithStorage)
 formSearch.addEventListener('submit', handlerSearch);
 filterMod.addEventListener('click', activeFilterMod)
-
-standartMod.addEventListener('click', () => {
-    standartMod.classList.add('active');
-    filterMod.classList.remove('active');
-})
+standartMod.addEventListener('click', activeStandartMod);
+btnFiltreLoadMore.addEventListener('click', activeBtnForFiltreLoadMore)
 
 /* Пагинація */
 
@@ -95,6 +99,18 @@ standartMod.addEventListener('click', () => {
   
 /* КІНЕЦЬ Пагинація */
 
+
+function activeStandartMod(e) {
+    if(!e.path[1].classList.contains('active')) {
+        contentList.innerHTML = '';
+
+        switcherLoader();
+    
+        ToggleForWindowMod();
+    }
+
+}
+
 function activeFilterMod(e) {
     if(!e.target.parentNode.classList.contains('active')) {
 
@@ -131,29 +147,91 @@ function activeFilterMod(e) {
     
 }
 
-async function chooseEmoji(e) {
+function activeBtnForFiltreLoadMore(e) {
+    const id = e.target.dataset.id;
+
+    switcherLoader();
+
+    LoadCardForFilterMod(id)
+}
+
+function ToggleForWindowMod() {
+    switchMod[0].classList.toggle('d-none');
+    switchMod[1].classList.toggle('d-none');
+
+    standartMod.classList.toggle('active');
+    filterMod.classList.toggle('active');
+}
+
+async function LoadCardForFilterMod(id) {
+    let data = await Filtre.activeFiltreFetch(id);
+
+    const check = LocalStorage.getData();
+    const newData = Helpers.checkIsMarked(check, data);
+    data = newData;
+
+    Filtre.addPage();
+
+    const html = Helpers.createCard(data);
+
+    Helpers.innerToHTML(contentList, html);
+
+    switcherLoader();
+}
+
+function switcherLoader() {
+    Loader.classList.toggle('loader-active');
+}
+
+function switcherForContent() {
+    switchContent[0].classList.toggle('d-none');
+    switchContent[1].classList.toggle('d-none');
+}
+
+function switcher(e) {
+    const target = e.target;
+
+    if(!target.classList.contains('buttonActive')) {
+        target.classList.add('buttonActive');
+        const items = LocalStorage.getData();
+
+        if(items.length <= 0) {
+            storageList.innerHTML = '<h3 style="text-align:center; color:#fff"> Нічого немає </h3>'
+        } else {
+            items.forEach( async id => {
+                const response = await Helpers.activeIDFetch(id);
+                
+                const card = Helpers.createCard([response]);
+    
+                Helpers.innerToHTML(storageList, card)
+            })
+        }
+
+        switcherForContent();
+    } else {
+        target.classList.remove('buttonActive');
+
+        switcherForContent();
+
+        storageList.innerHTML = '';
+    }
+}
+
+
+
+function chooseEmoji(e) {
     const id = e.target.dataset.id;
     if(typeof id === 'string') {
 
-        if(switchMod[1].classList.contains('d-none')) {
-            switchMod[0].classList.toggle('d-none');
-            switchMod[1].classList.toggle('d-none');
-            // switchMod[1].classList.add('d-block');
-    
-            standartMod.classList.remove('active');
-            filterMod.classList.add('active');
-    
-            closeModal();
-        }
+        ToggleForWindowMod();
 
-        const data = await Filtre.activeFiltreFetch(id);
-        Filtre.addPage();
+        closeModal();
 
-        const html = Helpers.createCard(data);
-
-        contentList.innerHTML += html;
+        LoadCardForFilterMod(id);
 
 
+        btnFiltreLoadMore.dataset.id = id;
+        btnFiltreLoadMore.dataset.page = Filtre.__PAGE; 
     }
 
 }
@@ -210,39 +288,7 @@ function closeModal() {
     Modal.classList.add('d-none');
 }
 
-function switcher(e) {
-    const target = e.target;
 
-    if(!target.classList.contains('buttonActive')) {
-        target.classList.add('buttonActive');
-        const items = LocalStorage.getData();
-
-        if(items.length <= 0) {
-            console.log(items.length);
-            storageList.innerHTML = '<h3 style="text-align:center; color:#fff"> Нічого немає </h3>'
-        } else {
-            items.forEach( async id => {
-                const response = await Helpers.activeIDFetch(id);
-                
-                const card = Helpers.createCard([response]);
-    
-                Helpers.innerToHTML(storageList, card)
-            })
-        }
-
-        switchContent[0].classList.add('d-none');
-        switchContent[1].classList.remove('d-none');
-    } else {
-        target.classList.remove('buttonActive');
-
-        switchContent[0].classList.remove('d-none');
-        switchContent[1].classList.add('d-none');
-
-        storageList.innerHTML = '';
-    }
-
-
-}
 
 function workWithStorage(e) {
     const target = e.target;
@@ -265,10 +311,7 @@ function workWithStorage(e) {
 
 async function Fetch() {
 
-    const URL = `https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=`;
-    const page = Helpers.__PAGE;
-
-    let films = await Helpers.activeFetch(URL+page);
+    let films = await Helpers.activeFetch();
 
     const check = LocalStorage.getData();
 

@@ -63,6 +63,12 @@ ul {
     color: rgb(227 136 255);
     font-size: 12px;
 }
+.wrap-btn-height {
+    min-height: 90px;
+}
+.button {
+    min-height: 50px;
+}
 .btnFocus:focus {
     box-shadow: 0 0 0 0.25rem rgb(201 113 255 / 58%);
 }
@@ -78,6 +84,10 @@ ul {
 }
 .emoji:hover {
     filter: brightness(0.7);
+}
+
+.loader-active {
+    display: none !important;
 }
 /* END all classes */
 
@@ -101,10 +111,18 @@ ul {
 .header__img {
     width: 85%;
 }
+.header__logo {
+    min-width: 100px;
+    height: 65px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 
 main {
     min-height: 100vh;
     margin-top: 5rem;
+    scroll-behavior: smooth;
 }
 .content__fillter {
     border-bottom: 4px solid #9E00FF;

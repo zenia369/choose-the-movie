@@ -23,7 +23,10 @@
             <div class="row header d-flex justify-content-between p-3">
                 <div class="col-2 d-flex align-items-center gap-2">
                     <h1>My</h1>
-                    <img class="header__img" src="./img/logo.png" alt="Me cinema">
+                    <!-- <img class="header__img" src="./img/logo_transparent.png" alt="Me cinema"> -->
+                    <div class="header__logo" style="background-image: url('./img/logo_transparent.png')">
+
+                    </div>
                 </div>
                 <div class="col-6 d-flex align-items-center justify-content-around gap-1">
                     <form id="search-form">
@@ -80,10 +83,11 @@
                             <!-- END Item Card -->
                         </div>
                         <div class="row" id="loader">
-                            <div class="col-2 d-flex align-items-center justify-content-around w-100 mb-4">
-                                <button data-id="" data-page="" id="filtre-loadMore" type="button" class="btn btnFocus upperText backgroundColor textColor">
+                            <div class="col-2 d-flex align-items-center justify-content-center w-100 h-10 mb-4 gap-2 wrap-btn-height">
+                                <button data-id="" data-page="" id="filtre-loadMore" type="button" class="btn button btnFocus upperText backgroundColor textColor">
                                     Завантажити ще
                                 </button>
+                                <div id="loader-in-filterList" class="lds-facebook "><div></div><div></div><div></div></div>
                             </div>
                         </div>
                     </div>

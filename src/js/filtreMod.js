@@ -8,7 +8,7 @@ export default class FiltreMod {
     }
 
     async activeFiltreFetch(id) {
-        const url = `https://kinopoiskapiunofficial.tech/api/v2.2/films?genres=${id}&order=RATING&type=ALL&ratingFrom=0&ratingTo=10&yearFrom=2000&yearTo=3000&page=1`
+        const url = `https://kinopoiskapiunofficial.tech/api/v2.2/films?genres=${id}&order=RATING&type=ALL&ratingFrom=0&ratingTo=10&yearFrom=2000&yearTo=3000&page=${this.__PAGE}`
 
         const request = await fetch(
             url, 
