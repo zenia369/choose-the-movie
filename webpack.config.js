@@ -30,19 +30,7 @@ module.exports = {
         new FaviconsWebpackPlugin({
             logo: './img/favicon.png', 
             mode: 'webapp', 
-            devMode: 'webapp', 
-            // favicons: {
-            //   appName: 'cinema',
-            //   appDescription: 'Cinema',
-            //   developerName: 'Cinema',
-            //   developerURL: null, 
-            //   background: '#ddd',
-            //   theme_color: '#333',
-            //   icons: {
-            //     coast: false,
-            //     yandex: false
-            //   }
-            // }
+            devMode: 'webapp',
           })
     ],
     module: {
@@ -57,13 +45,6 @@ module.exports = {
                     }
                 }],
             },
-            {
-                test: /\.css$/i,
-                loader: 'css-loader',
-                options: {
-                  url: true,
-                },
-              },
             {
                 test: /\.(png|svg|jpeg|gif)$/,
                 use: [ {
